@@ -5,34 +5,35 @@ var students = [
     {id: "5526666", name: "Karla", score: 80}
 ];
 
-document.write("<h3>JSON</h3>");
-document.write("<pre class='alert alert-secondary'>"); // 1) Bootstrap class
-document.write(JSON.stringify(students, undefined, 2));
-document.write("</pre>");
-document.write("<br/>");
+// document.write("<h3>JSON</h3>");
+// document.write("<pre class='alert alert-secondary'>"); // 1) Bootstrap class
+// document.write(JSON.stringify(students, undefined, 2));
+// document.write("</pre>");
+// document.write("<br/>");
+
 var names = [];
 
 students.forEach(student => {
     names.push(student.name);
 });
 
-document.writeln("Students are:" + names);
+//document.writeln("Students are:" + names);
 
-if (calculateAverage() >= 70) {
-    document.write("<pre class='alert alert-success'>");
-    document.writeln(`Average: ${calculateAverage()}`);
-    document.write("</pre>");
-  }else{
-    document.write("<pre class='alert alert-danger'>");
-    document.writeln(`Average: ${calculateAverage()}`);
-    document.write("</pre>");   
-  }
+// if (calculateAverage() >= 70) {
+//     document.write("<pre class='alert alert-success'>");
+//     document.writeln(`Average: ${calculateAverage()}`);
+//     document.write("</pre>");
+//   }else{
+//     document.write("<pre class='alert alert-danger'>");
+//     document.writeln(`Average: ${calculateAverage()}`);
+//     document.write("</pre>");   
+//   }
 
 function calculateAverage(){
 
     var average = 0;
     students.forEach(student => {
-        average = average + student.score;
+        average = average + parseInt(student.score);
     });
     average = average / students.length;
 
@@ -49,7 +50,7 @@ function loadDataGrid() {
         if (students[i].score < 60) {
             var listItem = document.createElement("section");
             listItem.classList.add("row")
-            listItem.classList.add("alert", "alert-danger");
+            listItem.classList.add("text-danger");
           }else{
             var listItem = document.createElement("section");
             listItem.classList.add("row")
@@ -139,4 +140,20 @@ function loadData(){
         // i += 2;
         // i += 3;
     }
+}
+
+function addNewStuden() {
+
+    let addNew = document.getElementById("addNew");
+   
+    var newStudent = []
+    var infoNS = {}
+
+    for (const element of addNew.elements) {
+        infoNS[element.name] = element.value;
+    }
+
+    students.push(infoNS)
+    addNew.reset();
+    loadDataGrid();
 }

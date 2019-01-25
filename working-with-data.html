@@ -16,13 +16,6 @@
     </header>
     
     <section class="row-fluid">
-        <section class="btn-group">
-            <button class="btn btn-primary" onclick="loadDataGrid()">Load</button>
-            <button class="btn btn-secondary" onclick="displayAverage()">Average</button>
-            <button class="btn btn-primary" onclick="">Add</button>        
-        </section>
-    </section>
-    <section class="row-fluid">
         <section id="dataList" class="border">
             <div class="row">
                 <div class="col-md">
@@ -41,5 +34,45 @@
         <section id="resultSection" class="alert alert-info">
         </section>
     </section>
+
+    <section class="row-fluid">
+        <section class="btn-group">
+            <button class="btn btn-primary" onclick="loadDataGrid()">Load</button>
+            <button class="btn btn-secondary" onclick="displayAverage()">Average</button>    
+        </section>
+    </section>    
+
+    <br>
+
+    <form id="addNew" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="fIdIn" class="col-2 col-form-label">Id</label>
+          <div class="col-10">
+            <input type="text" class="form-control" name='id' id="fIdIn" placeholder="Id">
+            </div>
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="fNameIn" class="col-2 col-form-label">Name</label>
+            <div class="col-10">
+              <input type="text" class="form-control" id="fNameIn" name="name" placeholder="Name">
+              </div>
+          </div>
+        
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="fScoreIn" class="col-2 col-form-label">Score</label>
+            <div class="col-10">
+              <input type="text" name="score" class="form-control" id="fScoreIn" placeholder="Score">
+              </div>
+          </div>
+
+    </form>
+
+    <section class="row-fluid">
+            <section class="btn-group">
+                <button type="submit" class="btn btn-primary mb-2" onclick="addNewStuden()">Add</button>        
+            </section>        
+    </section>    
+
 </body>
 </html>
