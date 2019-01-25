@@ -18,9 +18,15 @@ students.forEach(student => {
 
 document.writeln("Students are:" + names);
 
-document.write("<pre>");
-document.writeln(`Average: ${calculateAverage()}`);
-document.write("</pre>");
+if (calculateAverage() >= 70) {
+    document.write("<pre class='alert alert-success'>");
+    document.writeln(`Average: ${calculateAverage()}`);
+    document.write("</pre>");
+  }else{
+    document.write("<pre class='alert alert-danger'>");
+    document.writeln(`Average: ${calculateAverage()}`);
+    document.write("</pre>");   
+  }
 
 function calculateAverage(){
 
@@ -40,8 +46,18 @@ function loadDataGrid() {
     
     while (i < students.length)
     {
-        var listItem = document.createElement("section");
-        listItem.classList.add("row");
+        if (students[i].score < 60) {
+            var listItem = document.createElement("section");
+            listItem.classList.add("row")
+            listItem.classList.add("alert", "alert-danger");
+          }else{
+            var listItem = document.createElement("section");
+            listItem.classList.add("row")
+          }
+        
+        
+        // var listItem = document.createElement("section");
+        // listItem.classList.add("row");
         
         var id = document.createElement("div");
         id.classList.add("col-sm");
@@ -50,6 +66,18 @@ function loadDataGrid() {
         var name = document.createElement("div");
         name.classList.add("col-sm");
         name.innerText =  students[i].name;
+
+        // if (students[i].score < 60) {
+        //     var score = document.createElement("div");
+        //     score.classList.add("col-sm");
+        //     score.classList.add("alert", "alert-danger");
+        //     score.innerText =  students[i].score; 
+        //   }else{
+        //     var score = document.createElement("div");
+        //     score.classList.add("col-sm");
+        //     score.innerText =  students[i].score; 
+        //   }
+        
 
         var score = document.createElement("div");
         score.classList.add("col-sm");
