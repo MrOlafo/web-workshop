@@ -146,7 +146,7 @@ function addNewStuden() {
 
     let addNew = document.getElementById("addNew");
    
-    var newStudent = []
+    //var newStudent = []
     var infoNS = {}
 
     for (const element of addNew.elements) {
