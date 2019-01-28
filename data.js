@@ -1,38 +1,27 @@
-var students = [
-    {id: "1122222", name: "John", score: 90 }, // 0 {Object} => students[0] => students[0].score => total  
-    {id: "2223333", name: "Larry", score: 60 }, // 1
-    {id: "4455555", name: "Joseph", score: 50 }, // 2
-    {id: "5526666", name: "Karla", score: 80}
-];
+var students = [];
 
-
-// document.write("<h3>JSON</h3>");
-// document.write("<pre class='alert alert-secondary'>"); // 1) Bootstrap class
-// document.write(JSON.stringify(students, undefined, 2));
-// document.write("</pre>");
-// document.write("<br/>");
+document.write("<h3>JSON</h3>");
+document.write("<pre class='alert alert-secondary'>"); // 1) Bootstrap class
+document.write(JSON.stringify(students, undefined, 2));
+document.write("</pre>");
+document.write("<br/>");
+var names = [];
 
 students.forEach(student => {
     names.push(student.name);
 });
 
-//document.writeln("Students are:" + names);
+document.writeln("Students are:" + names);
 
-// if (calculateAverage() >= 70) {
-//     document.write("<pre class='alert alert-success'>");
-//     document.writeln(`Average: ${calculateAverage()}`);
-//     document.write("</pre>");
-//   }else{
-//     document.write("<pre class='alert alert-danger'>");
-//     document.writeln(`Average: ${calculateAverage()}`);
-//     document.write("</pre>");   
-//   }
+document.write("<pre>");
+document.writeln(`Average: ${calculateAverage()}`);
+document.write("</pre>");
 
 function calculateAverage(){
 
     var average = 0;
     students.forEach(student => {
-        average = average + parseInt(student.score);
+        average = average + student.score;
     });
     average = average / students.length;
 
@@ -46,18 +35,8 @@ function loadDataGrid() {
     
     while (i < students.length)
     {
-        if (students[i].score < 60) {
-            var listItem = document.createElement("section");
-            listItem.classList.add("row")
-            listItem.classList.add("text-danger");
-          }else{
-            var listItem = document.createElement("section");
-            listItem.classList.add("row")
-          }
-        
-        
-        // var listItem = document.createElement("section");
-        // listItem.classList.add("row");
+        var listItem = document.createElement("section");
+        listItem.classList.add("row");
         
         var id = document.createElement("div");
         id.classList.add("col-sm");
@@ -67,21 +46,15 @@ function loadDataGrid() {
         name.classList.add("col-sm");
         name.innerText =  students[i].name;
 
-        // if (students[i].score < 60) {
-        //     var score = document.createElement("div");
-        //     score.classList.add("col-sm");
-        //     score.classList.add("alert", "alert-danger");
-        //     score.innerText =  students[i].score; 
-        //   }else{
-        //     var score = document.createElement("div");
-        //     score.classList.add("col-sm");
-        //     score.innerText =  students[i].score; 
-        //   }
-        
-
         var score = document.createElement("div");
         score.classList.add("col-sm");
         score.innerText =  students[i].score;
+
+        var currentScore = students[i].score;
+        if (currentScore < document.getElementById("scoreInput").value)
+        {
+            score.classList.add("lowScore");
+        }
 
         console.log(students[i]);
 
@@ -107,8 +80,17 @@ function displayAverage()
     paragraph.classList.add("badge-info");
 
     paragraph.innerText = "Average: " + calculateAverage();
-
+    
     resultSection.appendChild(paragraph);
+}
+
+function refreshScores(){
+    let dataList = document.getElementById("dataList");
+
+    while (dataList.childElementCount > 1){
+        dataList.removeChild(dataList.lastChild);
+    }
+    loadDataGrid();
 }
 
 function myReplacer(name, val) {
@@ -141,18 +123,19 @@ function loadData(){
     }
 }
 
-function addNewStuden() {
-
-    let addNew = document.getElementById("addNew");
-   
-    //var newStudent = []
-    var infoNS = {}
-
-    for (const element of addNew.elements) {
-        infoNS[element.name] = element.value;
-    }
-
-    students.push(infoNS)
-    addNew.reset();
-    loadDataGrid();
+function fetchData() {
+    var request = new XMLHttpRequest();
+    request.open('GET', '/api/products', true);
+    
+    request.onload = function() {
+      if (request.status !== 200) {
+        body.innerHTML = 'An error occurred during your request: ' +  request.status + ' ' + request.statusText;
+        return;
+      }
+      renderTable(JSON.parse(request.responseText));
+    };
+    request.onerror = function() {
+        body.innerHTML = 'An error occurred during your request: ' +  request.status + ' ' + request.statusText;
+    };
+    request.send();
 }
